@@ -1,3 +1,9 @@
+.vscode
+
+projects/*
+!projects/demo
+!projects/demo/**
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
