@@ -65,10 +65,9 @@
 
 1.  **克隆仓库：**
     ```bash
-    git clone https://github.com/Miki-Riako/Personal-Skill-Tree-Builder.git 
-    cd Personal-Skill-Tree-Builder 
+    git clone https://github.com/Miki-Riako/Graph-Relationship-Management-Tool.git 
+    cd Graph-Relationship-Management-Tool
     ```
-    *(如果项目不再仅仅是“技能树构建器”，您可能需要重命名仓库)*
 
 2.  **设置虚拟环境 (推荐)：**
     ```bash
@@ -138,4 +137,4 @@
 
 ## 📜 许可证
 
-本项目开源。(可以考虑添加具体的许可证，例如 MIT 许可证)。
+本项目开源。(考虑添加具体的许可证，例如 MIT 许可证)。

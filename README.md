@@ -30,7 +30,7 @@ Many systems, concepts, and datasets can be understood as a network of interconn
 *   Dependencies in a software project.
 *   Organizational structures.
 *   Character relationships in a story.
-*   Or any other system बेस्ट represented as a graph.
+*   Or any other system represented as a graph.
 
 This tool aims to provide a simple yet effective way to:
 
@@ -65,10 +65,9 @@ This tool aims to provide a simple yet effective way to:
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/Miki-Riako/Personal-Skill-Tree-Builder.git
-    cd Personal-Skill-Tree-Builder 
+    git clone https://github.com/Miki-Riako/Graph-Relationship-Management-Tool.git
+    cd Graph-Relationship-Management-Tool
     ```
-    *(You might want to rename the repository if it's no longer just a "Skill Tree Builder")*
 
 2.  **Set up a Virtual Environment (Recommended):**
     ```bash
