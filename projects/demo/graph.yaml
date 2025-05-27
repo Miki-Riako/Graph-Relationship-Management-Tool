@@ -1,0 +1,204 @@
+# graph.yaml
+#
+# This file defines your personal knowledge graph.
+# It consists of 'nodes' (concepts/skills) and 'edges' (relationships between them).
+#
+# --- NODES (Concepts/Skills) ---
+# Each node has a unique 'id' (used for internal linking) and a 'label' (what's displayed).
+# You can add any custom attributes to nodes (e.g., 'level', 'description', 'tags', 'last_reviewed').
+nodes:
+  - id: Mathematics
+    label: Mathematics
+    level: foundational
+    description: "The formal science of number, quantity, and space; a foundational discipline for many fields."
+    tags: [core, STEM, abstract]
+
+  - id: Calculus
+    label: Calculus
+    level: intermediate
+    description: "Study of change, accumulation, and motion; includes differential and integral calculus."
+    last_reviewed: "2023-11-01"
+    tags: [math, analysis]
+
+  - id: Linear_Algebra
+    label: Linear Algebra
+    level: intermediate
+    description: "Study of vectors, vector spaces, linear transformations, and systems of linear equations."
+    tags: [math, foundations, data_science]
+
+  - id: CS
+    label: Computer Science
+    level: foundational
+    description: "Study of computation, automation, and information, including theoretical foundations and practical applications."
+    tags: [core, STEM, technology]
+
+  - id: Algorithms
+    label: Algorithms
+    level: intermediate
+    description: "A set of well-defined instructions to solve a problem or perform a computation."
+    tags: [CS, theory, problem_solving]
+
+  - id: Operating_Systems
+    label: Operating Systems
+    level: intermediate
+    description: "Software that manages computer hardware and software resources and provides common services for computer programs."
+    tags: [CS, systems, software]
+
+  - id: Concurrency
+    label: Concurrency
+    level: advanced
+    description: "Executing multiple computations at the same time, often involving managing shared resources."
+    tags: [CS, OS, distributed_systems]
+
+  - id: Spinlock
+    label: Spinlock
+    level: advanced
+    description: "A type of lock where a thread repeatedly checks if a lock is available, 'spinning' while it waits."
+    tags: [CS, OS, low_level]
+
+  - id: CAS
+    label: Compare-And-Swap
+    level: expert
+    description: "An atomic operation used in concurrency to achieve synchronization without explicit locks."
+    tags: [CS, atomics, low_level]
+
+  - id: Physics
+    label: Physics
+    level: foundational
+    description: "The natural science that studies matter, its fundamental constituents, its motion and behavior through space and time, and the related entities of energy and force."
+    tags: [core, STEM, natural_science]
+
+  - id: Electromagnetism
+    label: Electromagnetism
+    level: intermediate
+    description: "The study of the interaction of electric currents or fields and magnetic fields."
+    tags: [physics, classical_physics]
+
+  - id: Maxwell_Equations
+    label: Maxwell's Equations
+    level: advanced
+    description: "A set of four partial differential equations that, together with the Lorentz force law, form the foundation of classical electromagnetism."
+    tags: [physics, electromagnetism, equations]
+
+  - id: EE
+    label: Electrical Engineering
+    level: foundational
+    description: "A professional engineering discipline that deals with the study and application of electricity, electronics, and electromagnetism."
+    tags: [core, engineering, technology]
+
+  - id: Circuits
+    label: Circuits
+    level: intermediate
+    description: "An electrical circuit is a path for transmitting electric current."
+    tags: [EE, electronics]
+
+  - id: Machine_Learning
+    label: Machine Learning
+    level: advanced
+    description: "A subfield of AI that enables systems to learn from data without explicit programming."
+    tags: [AI, CS, data_science]
+
+  - id: Consistent_Continuity
+    label: Consistent Continuity
+    level: expert
+    description: "A fundamental concept in calculus related to the behavior of functions."
+    tags: [math, calculus, advanced]
+
+  - id: Data_Structures
+    label: Data Structures
+    level: intermediate
+    tags: [CS, fundamental]
+
+  - id: Algorithms_and_Data_Structures
+    label: Algorithms and Data Structures
+    level: intermediate
+    tags: [CS, fundamental]
+
+# --- EDGES (Relationships between Concepts) ---
+# Each edge must specify 'source' and 'target' nodes by their 'id'.
+# You can add any custom attributes to edges (e.g., 'type', 'strength', 'notes').
+# 'type' is particularly useful for categorizing relationships (e.g., DEPENDS_ON, HAS_SUBFIELD).
+edges:
+  # General Dependencies / Foundational Links
+  - source: Physics
+    target: Mathematics
+    type: DEPENDS_ON
+    notes: "Physics heavily relies on mathematical principles."
+
+  - source: EE
+    target: Physics
+    type: DEPENDS_ON
+    notes: "Electrical Engineering applies principles from Physics, especially electromagnetism."
+
+  - source: CS
+    target: Mathematics
+    type: DEPENDS_ON
+    notes: "Computer Science has strong mathematical foundations (e.g., discrete math, logic)."
+
+  - source: Machine_Learning
+    target: Linear_Algebra
+    type: DEPENDS_ON
+    notes: "Linear Algebra is crucial for understanding ML algorithms (vectors, matrices, transformations)."
+
+  - source: Algorithms
+    target: Data_Structures
+    type: INTERDEPENDENT # Example of a new relationship type
+    notes: "Algorithms often operate on specific data structures, and vice-versa."
+
+  # Subfield / Hierarchical Relationships
+  - source: Mathematics
+    target: Calculus
+    type: HAS_SUBFIELD
+
+  - source: Mathematics
+    target: Linear_Algebra
+    type: HAS_SUBFIELD
+
+  - source: CS
+    target: Algorithms
+    type: HAS_SUBFIELD
+
+  - source: CS
+    target: Operating_Systems
+    type: HAS_SUBFIELD
+
+  - source: Physics
+    target: Electromagnetism
+    type: HAS_SUBFIELD
+
+  - source: EE
+    target: Circuits
+    type: HAS_SUBFIELD
+
+  - source: Operating_Systems
+    target: Concurrency
+    type: HAS_TOPIC # OS contains concurrency concepts
+
+  - source: Concurrency
+    target: Spinlock
+    type: HAS_MECHANISM # Spinlock is a concurrency mechanism
+
+  - source: Spinlock
+    target: CAS
+    type: USES_OPERATION # CAS is an atomic operation used in spinlocks
+
+  - source: Electromagnetism
+    target: Maxwell_Equations
+    type: IS_DEFINED_BY # Maxwell's Equations are central to Electromagnetism
+
+  - source: Calculus
+    target: Consistent_Continuity
+    type: HAS_CONCEPT # Consistent Continuity is a concept in Calculus
+
+  # Cross-Disciplinary / Application
+  - source: CS
+    target: Machine_Learning
+    type: APPLIES_TO # ML is a subfield/application of CS
+    strength: 0.95
+
+  - source: Algorithms_and_Data_Structures
+    target: Algorithms
+    type: IS_COMPOSED_OF
+  - source: Algorithms_and_Data_Structures
+    target: Data_Structures
+    type: IS_COMPOSED_OF

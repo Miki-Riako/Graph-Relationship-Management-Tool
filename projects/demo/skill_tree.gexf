@@ -1,0 +1,190 @@
+<?xml version='1.0' encoding='utf-8'?>
+<gexf xmlns="http://www.gexf.net/1.2draft" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.gexf.net/1.2draft http://www.gexf.net/1.2draft/gexf.xsd" version="1.2">
+  <meta lastmodifieddate="2025-05-27">
+    <creator>NetworkX 3.3</creator>
+  </meta>
+  <graph defaultedgetype="directed" mode="static" name="">
+    <attributes mode="static" class="edge">
+      <attribute id="4" title="notes" type="string" />
+      <attribute id="5" title="strength" type="double" />
+    </attributes>
+    <attributes mode="static" class="node">
+      <attribute id="0" title="level" type="string" />
+      <attribute id="1" title="description" type="string" />
+      <attribute id="2" title="tags" type="string" />
+      <attribute id="3" title="last_reviewed" type="string" />
+    </attributes>
+    <nodes>
+      <node id="Mathematics" label="Mathematics">
+        <attvalues>
+          <attvalue for="0" value="foundational" />
+          <attvalue for="1" value="The formal science of number, quantity, and space; a foundational discipline for many fields." />
+          <attvalue for="2" value="core,STEM,abstract" />
+        </attvalues>
+      </node>
+      <node id="Calculus" label="Calculus">
+        <attvalues>
+          <attvalue for="0" value="intermediate" />
+          <attvalue for="1" value="Study of change, accumulation, and motion; includes differential and integral calculus." />
+          <attvalue for="3" value="2023-11-01" />
+          <attvalue for="2" value="math,analysis" />
+        </attvalues>
+      </node>
+      <node id="Linear_Algebra" label="Linear Algebra">
+        <attvalues>
+          <attvalue for="0" value="intermediate" />
+          <attvalue for="1" value="Study of vectors, vector spaces, linear transformations, and systems of linear equations." />
+          <attvalue for="2" value="math,foundations,data_science" />
+        </attvalues>
+      </node>
+      <node id="CS" label="Computer Science">
+        <attvalues>
+          <attvalue for="0" value="foundational" />
+          <attvalue for="1" value="Study of computation, automation, and information, including theoretical foundations and practical applications." />
+          <attvalue for="2" value="core,STEM,technology" />
+        </attvalues>
+      </node>
+      <node id="Algorithms" label="Algorithms">
+        <attvalues>
+          <attvalue for="0" value="intermediate" />
+          <attvalue for="1" value="A set of well-defined instructions to solve a problem or perform a computation." />
+          <attvalue for="2" value="CS,theory,problem_solving" />
+        </attvalues>
+      </node>
+      <node id="Operating_Systems" label="Operating Systems">
+        <attvalues>
+          <attvalue for="0" value="intermediate" />
+          <attvalue for="1" value="Software that manages computer hardware and software resources and provides common services for computer programs." />
+          <attvalue for="2" value="CS,systems,software" />
+        </attvalues>
+      </node>
+      <node id="Concurrency" label="Concurrency">
+        <attvalues>
+          <attvalue for="0" value="advanced" />
+          <attvalue for="1" value="Executing multiple computations at the same time, often involving managing shared resources." />
+          <attvalue for="2" value="CS,OS,distributed_systems" />
+        </attvalues>
+      </node>
+      <node id="Spinlock" label="Spinlock">
+        <attvalues>
+          <attvalue for="0" value="advanced" />
+          <attvalue for="1" value="A type of lock where a thread repeatedly checks if a lock is available, 'spinning' while it waits." />
+          <attvalue for="2" value="CS,OS,low_level" />
+        </attvalues>
+      </node>
+      <node id="CAS" label="Compare-And-Swap">
+        <attvalues>
+          <attvalue for="0" value="expert" />
+          <attvalue for="1" value="An atomic operation used in concurrency to achieve synchronization without explicit locks." />
+          <attvalue for="2" value="CS,atomics,low_level" />
+        </attvalues>
+      </node>
+      <node id="Physics" label="Physics">
+        <attvalues>
+          <attvalue for="0" value="foundational" />
+          <attvalue for="1" value="The natural science that studies matter, its fundamental constituents, its motion and behavior through space and time, and the related entities of energy and force." />
+          <attvalue for="2" value="core,STEM,natural_science" />
+        </attvalues>
+      </node>
+      <node id="Electromagnetism" label="Electromagnetism">
+        <attvalues>
+          <attvalue for="0" value="intermediate" />
+          <attvalue for="1" value="The study of the interaction of electric currents or fields and magnetic fields." />
+          <attvalue for="2" value="physics,classical_physics" />
+        </attvalues>
+      </node>
+      <node id="Maxwell_Equations" label="Maxwell's Equations">
+        <attvalues>
+          <attvalue for="0" value="advanced" />
+          <attvalue for="1" value="A set of four partial differential equations that, together with the Lorentz force law, form the foundation of classical electromagnetism." />
+          <attvalue for="2" value="physics,electromagnetism,equations" />
+        </attvalues>
+      </node>
+      <node id="EE" label="Electrical Engineering">
+        <attvalues>
+          <attvalue for="0" value="foundational" />
+          <attvalue for="1" value="A professional engineering discipline that deals with the study and application of electricity, electronics, and electromagnetism." />
+          <attvalue for="2" value="core,engineering,technology" />
+        </attvalues>
+      </node>
+      <node id="Circuits" label="Circuits">
+        <attvalues>
+          <attvalue for="0" value="intermediate" />
+          <attvalue for="1" value="An electrical circuit is a path for transmitting electric current." />
+          <attvalue for="2" value="EE,electronics" />
+        </attvalues>
+      </node>
+      <node id="Machine_Learning" label="Machine Learning">
+        <attvalues>
+          <attvalue for="0" value="advanced" />
+          <attvalue for="1" value="A subfield of AI that enables systems to learn from data without explicit programming." />
+          <attvalue for="2" value="AI,CS,data_science" />
+        </attvalues>
+      </node>
+      <node id="Consistent_Continuity" label="Consistent Continuity">
+        <attvalues>
+          <attvalue for="0" value="expert" />
+          <attvalue for="1" value="A fundamental concept in calculus related to the behavior of functions." />
+          <attvalue for="2" value="math,calculus,advanced" />
+        </attvalues>
+      </node>
+      <node id="Data_Structures" label="Data Structures">
+        <attvalues>
+          <attvalue for="0" value="intermediate" />
+          <attvalue for="2" value="CS,fundamental" />
+        </attvalues>
+      </node>
+      <node id="Algorithms_and_Data_Structures" label="Algorithms and Data Structures">
+        <attvalues>
+          <attvalue for="0" value="intermediate" />
+          <attvalue for="2" value="CS,fundamental" />
+        </attvalues>
+      </node>
+    </nodes>
+    <edges>
+      <edge source="Mathematics" target="Calculus" id="0" type="HAS_SUBFIELD" />
+      <edge source="Mathematics" target="Linear_Algebra" id="1" type="HAS_SUBFIELD" />
+      <edge source="Calculus" target="Consistent_Continuity" id="2" type="HAS_CONCEPT" />
+      <edge source="CS" target="Mathematics" id="3" type="DEPENDS_ON">
+        <attvalues>
+          <attvalue for="4" value="Computer Science has strong mathematical foundations (e.g., discrete math, logic)." />
+        </attvalues>
+      </edge>
+      <edge source="CS" target="Algorithms" id="4" type="HAS_SUBFIELD" />
+      <edge source="CS" target="Operating_Systems" id="5" type="HAS_SUBFIELD" />
+      <edge source="CS" target="Machine_Learning" id="6" type="APPLIES_TO">
+        <attvalues>
+          <attvalue for="5" value="0.95" />
+        </attvalues>
+      </edge>
+      <edge source="Algorithms" target="Data_Structures" id="7" type="INTERDEPENDENT">
+        <attvalues>
+          <attvalue for="4" value="Algorithms often operate on specific data structures, and vice-versa." />
+        </attvalues>
+      </edge>
+      <edge source="Operating_Systems" target="Concurrency" id="8" type="HAS_TOPIC" />
+      <edge source="Concurrency" target="Spinlock" id="9" type="HAS_MECHANISM" />
+      <edge source="Spinlock" target="CAS" id="10" type="USES_OPERATION" />
+      <edge source="Physics" target="Mathematics" id="11" type="DEPENDS_ON">
+        <attvalues>
+          <attvalue for="4" value="Physics heavily relies on mathematical principles." />
+        </attvalues>
+      </edge>
+      <edge source="Physics" target="Electromagnetism" id="12" type="HAS_SUBFIELD" />
+      <edge source="Electromagnetism" target="Maxwell_Equations" id="13" type="IS_DEFINED_BY" />
+      <edge source="EE" target="Physics" id="14" type="DEPENDS_ON">
+        <attvalues>
+          <attvalue for="4" value="Electrical Engineering applies principles from Physics, especially electromagnetism." />
+        </attvalues>
+      </edge>
+      <edge source="EE" target="Circuits" id="15" type="HAS_SUBFIELD" />
+      <edge source="Machine_Learning" target="Linear_Algebra" id="16" type="DEPENDS_ON">
+        <attvalues>
+          <attvalue for="4" value="Linear Algebra is crucial for understanding ML algorithms (vectors, matrices, transformations)." />
+        </attvalues>
+      </edge>
+      <edge source="Algorithms_and_Data_Structures" target="Algorithms" id="17" type="IS_COMPOSED_OF" />
+      <edge source="Algorithms_and_Data_Structures" target="Data_Structures" id="18" type="IS_COMPOSED_OF" />
+    </edges>
+  </graph>
+</gexf>

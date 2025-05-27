@@ -1,0 +1,321 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script>function neighbourhoodHighlight(params) {
+  // console.log("in nieghbourhoodhighlight");
+  allNodes = nodes.get({ returnType: "Object" });
+  // originalNodes = JSON.parse(JSON.stringify(allNodes));
+  // if something is selected:
+  if (params.nodes.length > 0) {
+    highlightActive = true;
+    var i, j;
+    var selectedNode = params.nodes[0];
+    var degrees = 2;
+
+    // mark all nodes as hard to read.
+    for (let nodeId in allNodes) {
+      // nodeColors[nodeId] = allNodes[nodeId].color;
+      allNodes[nodeId].color = "rgba(200,200,200,0.5)";
+      if (allNodes[nodeId].hiddenLabel === undefined) {
+        allNodes[nodeId].hiddenLabel = allNodes[nodeId].label;
+        allNodes[nodeId].label = undefined;
+      }
+    }
+    var connectedNodes = network.getConnectedNodes(selectedNode);
+    var allConnectedNodes = [];
+
+    // get the second degree nodes
+    for (i = 1; i < degrees; i++) {
+      for (j = 0; j < connectedNodes.length; j++) {
+        allConnectedNodes = allConnectedNodes.concat(
+          network.getConnectedNodes(connectedNodes[j])
+        );
+      }
+    }
+
+    // all second degree nodes get a different color and their label back
+    for (i = 0; i < allConnectedNodes.length; i++) {
+      // allNodes[allConnectedNodes[i]].color = "pink";
+      allNodes[allConnectedNodes[i]].color = "rgba(150,150,150,0.75)";
+      if (allNodes[allConnectedNodes[i]].hiddenLabel !== undefined) {
+        allNodes[allConnectedNodes[i]].label =
+          allNodes[allConnectedNodes[i]].hiddenLabel;
+        allNodes[allConnectedNodes[i]].hiddenLabel = undefined;
+      }
+    }
+
+    // all first degree nodes get their own color and their label back
+    for (i = 0; i < connectedNodes.length; i++) {
+      // allNodes[connectedNodes[i]].color = undefined;
+      allNodes[connectedNodes[i]].color = nodeColors[connectedNodes[i]];
+      if (allNodes[connectedNodes[i]].hiddenLabel !== undefined) {
+        allNodes[connectedNodes[i]].label =
+          allNodes[connectedNodes[i]].hiddenLabel;
+        allNodes[connectedNodes[i]].hiddenLabel = undefined;
+      }
+    }
+
+    // the main node gets its own color and its label back.
+    // allNodes[selectedNode].color = undefined;
+    allNodes[selectedNode].color = nodeColors[selectedNode];
+    if (allNodes[selectedNode].hiddenLabel !== undefined) {
+      allNodes[selectedNode].label = allNodes[selectedNode].hiddenLabel;
+      allNodes[selectedNode].hiddenLabel = undefined;
+    }
+  } else if (highlightActive === true) {
+    // console.log("highlightActive was true");
+    // reset all nodes
+    for (let nodeId in allNodes) {
+      // allNodes[nodeId].color = "purple";
+      allNodes[nodeId].color = nodeColors[nodeId];
+      // delete allNodes[nodeId].color;
+      if (allNodes[nodeId].hiddenLabel !== undefined) {
+        allNodes[nodeId].label = allNodes[nodeId].hiddenLabel;
+        allNodes[nodeId].hiddenLabel = undefined;
+      }
+    }
+    highlightActive = false;
+  }
+
+  // transform the object into an array
+  var updateArray = [];
+  if (params.nodes.length > 0) {
+    for (let nodeId in allNodes) {
+      if (allNodes.hasOwnProperty(nodeId)) {
+        // console.log(allNodes[nodeId]);
+        updateArray.push(allNodes[nodeId]);
+      }
+    }
+    nodes.update(updateArray);
+  } else {
+    // console.log("Nothing was selected");
+    for (let nodeId in allNodes) {
+      if (allNodes.hasOwnProperty(nodeId)) {
+        // console.log(allNodes[nodeId]);
+        // allNodes[nodeId].color = {};
+        updateArray.push(allNodes[nodeId]);
+      }
+    }
+    nodes.update(updateArray);
+  }
+}
+
+function filterHighlight(params) {
+  allNodes = nodes.get({ returnType: "Object" });
+  // if something is selected:
+  if (params.nodes.length > 0) {
+    filterActive = true;
+    let selectedNodes = params.nodes;
+
+    // hiding all nodes and saving the label
+    for (let nodeId in allNodes) {
+      allNodes[nodeId].hidden = true;
+      if (allNodes[nodeId].savedLabel === undefined) {
+        allNodes[nodeId].savedLabel = allNodes[nodeId].label;
+        allNodes[nodeId].label = undefined;
+      }
+    }
+
+    for (let i=0; i < selectedNodes.length; i++) {
+      allNodes[selectedNodes[i]].hidden = false;
+      if (allNodes[selectedNodes[i]].savedLabel !== undefined) {
+        allNodes[selectedNodes[i]].label = allNodes[selectedNodes[i]].savedLabel;
+        allNodes[selectedNodes[i]].savedLabel = undefined;
+      }
+    }
+
+  } else if (filterActive === true) {
+    // reset all nodes
+    for (let nodeId in allNodes) {
+      allNodes[nodeId].hidden = false;
+      if (allNodes[nodeId].savedLabel !== undefined) {
+        allNodes[nodeId].label = allNodes[nodeId].savedLabel;
+        allNodes[nodeId].savedLabel = undefined;
+      }
+    }
+    filterActive = false;
+  }
+
+  // transform the object into an array
+  var updateArray = [];
+  if (params.nodes.length > 0) {
+    for (let nodeId in allNodes) {
+      if (allNodes.hasOwnProperty(nodeId)) {
+        updateArray.push(allNodes[nodeId]);
+      }
+    }
+    nodes.update(updateArray);
+  } else {
+    for (let nodeId in allNodes) {
+      if (allNodes.hasOwnProperty(nodeId)) {
+        updateArray.push(allNodes[nodeId]);
+      }
+    }
+    nodes.update(updateArray);
+  }
+}
+
+function selectNode(nodes) {
+  network.selectNodes(nodes);
+  neighbourhoodHighlight({ nodes: nodes });
+  return nodes;
+}
+
+function selectNodes(nodes) {
+  network.selectNodes(nodes);
+  filterHighlight({nodes: nodes});
+  return nodes;
+}
+
+function highlightFilter(filter) {
+  let selectedNodes = []
+  let selectedProp = filter['property']
+  if (filter['item'] === 'node') {
+    let allNodes = nodes.get({ returnType: "Object" });
+    for (let nodeId in allNodes) {
+      if (allNodes[nodeId][selectedProp] && filter['value'].includes((allNodes[nodeId][selectedProp]).toString())) {
+        selectedNodes.push(nodeId)
+      }
+    }
+  }
+  else if (filter['item'] === 'edge'){
+    let allEdges = edges.get({returnType: 'object'});
+    // check if the selected property exists for selected edge and select the nodes connected to the edge
+    for (let edge in allEdges) {
+      if (allEdges[edge][selectedProp] && filter['value'].includes((allEdges[edge][selectedProp]).toString())) {
+        selectedNodes.push(allEdges[edge]['from'])
+        selectedNodes.push(allEdges[edge]['to'])
+      }
+    }
+  }
+  selectNodes(selectedNodes)
+}</script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+            
+            
+            
+            
+            
+
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 750px;
+                 background-color: #222222;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#FF5733", "font": {"color": "white"}, "id": "Mathematics", "label": "Mathematics", "shape": "dot", "size": 40, "title": "Concept: Mathematics\nDescription: The formal science of number, quantity, and space; a foundational discipline for many fields.\nTags: core,STEM,abstract"}, {"color": "#33FF57", "font": {"color": "white"}, "id": "Calculus", "label": "Calculus", "shape": "dot", "size": 15, "title": "Concept: Calculus\nDescription: Study of change, accumulation, and motion; includes differential and integral calculus.\nTags: math,analysis"}, {"color": "#33FF57", "font": {"color": "white"}, "id": "Linear_Algebra", "label": "Linear Algebra", "shape": "dot", "size": 20, "title": "Concept: Linear Algebra\nDescription: Study of vectors, vector spaces, linear transformations, and systems of linear equations.\nTags: math,foundations,data_science"}, {"color": "#FF5733", "font": {"color": "white"}, "id": "CS", "label": "Computer Science", "shape": "dot", "size": 40, "title": "Concept: Computer Science\nDescription: Study of computation, automation, and information, including theoretical foundations and practical applications.\nTags: core,STEM,technology"}, {"color": "#33FF57", "font": {"color": "white"}, "id": "Algorithms", "label": "Algorithms", "shape": "dot", "size": 20, "title": "Concept: Algorithms\nDescription: A set of well-defined instructions to solve a problem or perform a computation.\nTags: CS,theory,problem_solving"}, {"color": "#33FF57", "font": {"color": "white"}, "id": "Operating_Systems", "label": "Operating Systems", "shape": "dot", "size": 15, "title": "Concept: Operating Systems\nDescription: Software that manages computer hardware and software resources and provides common services for computer programs.\nTags: CS,systems,software"}, {"color": "skyblue", "font": {"color": "white"}, "id": "Concurrency", "label": "Concurrency", "shape": "dot", "size": 15, "title": "Concept: Concurrency\nDescription: Executing multiple computations at the same time, often involving managing shared resources.\nTags: CS,OS,distributed_systems"}, {"color": "skyblue", "font": {"color": "white"}, "id": "Spinlock", "label": "Spinlock", "shape": "dot", "size": 15, "title": "Concept: Spinlock\nDescription: A type of lock where a thread repeatedly checks if a lock is available, \u0027spinning\u0027 while it waits.\nTags: CS,OS,low_level"}, {"color": "skyblue", "font": {"color": "white"}, "id": "CAS", "label": "Compare-And-Swap", "shape": "dot", "size": 15, "title": "Concept: Compare-And-Swap\nDescription: An atomic operation used in concurrency to achieve synchronization without explicit locks.\nTags: CS,atomics,low_level"}, {"color": "#FF5733", "font": {"color": "white"}, "id": "Physics", "label": "Physics", "shape": "dot", "size": 40, "title": "Concept: Physics\nDescription: The natural science that studies matter, its fundamental constituents, its motion and behavior through space and time, and the related entities of energy and force.\nTags: core,STEM,natural_science"}, {"color": "#33FF57", "font": {"color": "white"}, "id": "Electromagnetism", "label": "Electromagnetism", "shape": "dot", "size": 15, "title": "Concept: Electromagnetism\nDescription: The study of the interaction of electric currents or fields and magnetic fields.\nTags: physics,classical_physics"}, {"color": "skyblue", "font": {"color": "white"}, "id": "Maxwell_Equations", "label": "Maxwell\u0027s Equations", "shape": "dot", "size": 15, "title": "Concept: Maxwell\u0027s Equations\nDescription: A set of four partial differential equations that, together with the Lorentz force law, form the foundation of classical electromagnetism.\nTags: physics,electromagnetism,equations"}, {"color": "#FF5733", "font": {"color": "white"}, "id": "EE", "label": "Electrical Engineering", "shape": "dot", "size": 40, "title": "Concept: Electrical Engineering\nDescription: A professional engineering discipline that deals with the study and application of electricity, electronics, and electromagnetism.\nTags: core,engineering,technology"}, {"color": "#33FF57", "font": {"color": "white"}, "id": "Circuits", "label": "Circuits", "shape": "dot", "size": 15, "title": "Concept: Circuits\nDescription: An electrical circuit is a path for transmitting electric current.\nTags: EE,electronics"}, {"color": "skyblue", "font": {"color": "white"}, "id": "Machine_Learning", "label": "Machine Learning", "shape": "dot", "size": 15, "title": "Concept: Machine Learning\nDescription: A subfield of AI that enables systems to learn from data without explicit programming.\nTags: AI,CS,data_science"}, {"color": "skyblue", "font": {"color": "white"}, "id": "Consistent_Continuity", "label": "Consistent Continuity", "shape": "dot", "size": 15, "title": "Concept: Consistent Continuity\nDescription: A fundamental concept in calculus related to the behavior of functions.\nTags: math,calculus,advanced"}, {"color": "#33FF57", "font": {"color": "white"}, "id": "Data_Structures", "label": "Data Structures", "shape": "dot", "size": 20, "title": "Concept: Data Structures\nTags: CS,fundamental"}, {"color": "#33FF57", "font": {"color": "white"}, "id": "Algorithms_and_Data_Structures", "label": "Algorithms and Data Structures", "shape": "dot", "size": 10, "title": "Concept: Algorithms and Data Structures\nTags: CS,fundamental"}]);
+                  edges = new vis.DataSet([{"arrows": "to", "color": "lightblue", "from": "Mathematics", "title": "Relationship: HAS_SUBFIELD", "to": "Calculus", "width": 1.5}, {"arrows": "to", "color": "lightblue", "from": "Mathematics", "title": "Relationship: HAS_SUBFIELD", "to": "Linear_Algebra", "width": 1.5}, {"arrows": "to", "color": "gray", "from": "Calculus", "title": "Relationship: HAS_CONCEPT", "to": "Consistent_Continuity", "width": 1.5}, {"arrows": "to", "color": "orange", "from": "CS", "title": "Relationship: DEPENDS_ON\nNotes: Computer Science has strong mathematical foundations (e.g., discrete math, logic).", "to": "Mathematics", "width": 1.5}, {"arrows": "to", "color": "lightblue", "from": "CS", "title": "Relationship: HAS_SUBFIELD", "to": "Algorithms", "width": 1.5}, {"arrows": "to", "color": "lightblue", "from": "CS", "title": "Relationship: HAS_SUBFIELD", "to": "Operating_Systems", "width": 1.5}, {"arrows": "to", "color": "gray", "from": "CS", "title": "Relationship: APPLIES_TO", "to": "Machine_Learning", "width": 1.5}, {"arrows": "to", "color": "gray", "from": "Algorithms", "title": "Relationship: INTERDEPENDENT\nNotes: Algorithms often operate on specific data structures, and vice-versa.", "to": "Data_Structures", "width": 1.5}, {"arrows": "to", "color": "gray", "from": "Operating_Systems", "title": "Relationship: HAS_TOPIC", "to": "Concurrency", "width": 1.5}, {"arrows": "to", "color": "gray", "from": "Concurrency", "title": "Relationship: HAS_MECHANISM", "to": "Spinlock", "width": 1.5}, {"arrows": "to", "color": "gray", "from": "Spinlock", "title": "Relationship: USES_OPERATION", "to": "CAS", "width": 1.5}, {"arrows": "to", "color": "orange", "from": "Physics", "title": "Relationship: DEPENDS_ON\nNotes: Physics heavily relies on mathematical principles.", "to": "Mathematics", "width": 1.5}, {"arrows": "to", "color": "lightblue", "from": "Physics", "title": "Relationship: HAS_SUBFIELD", "to": "Electromagnetism", "width": 1.5}, {"arrows": "to", "color": "gray", "from": "Electromagnetism", "title": "Relationship: IS_DEFINED_BY", "to": "Maxwell_Equations", "width": 1.5}, {"arrows": "to", "color": "orange", "from": "EE", "title": "Relationship: DEPENDS_ON\nNotes: Electrical Engineering applies principles from Physics, especially electromagnetism.", "to": "Physics", "width": 1.5}, {"arrows": "to", "color": "lightblue", "from": "EE", "title": "Relationship: HAS_SUBFIELD", "to": "Circuits", "width": 1.5}, {"arrows": "to", "color": "orange", "from": "Machine_Learning", "title": "Relationship: DEPENDS_ON\nNotes: Linear Algebra is crucial for understanding ML algorithms (vectors, matrices, transformations).", "to": "Linear_Algebra", "width": 1.5}, {"arrows": "to", "color": "gray", "from": "Algorithms_and_Data_Structures", "title": "Relationship: IS_COMPOSED_OF", "to": "Algorithms", "width": 1.5}, {"arrows": "to", "color": "gray", "from": "Algorithms_and_Data_Structures", "title": "Relationship: IS_COMPOSED_OF", "to": "Data_Structures", "width": 1.5}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {"nodes": {"borderWidth": 1, "borderWidthSelected": 2, "shadow": {"enabled": true}}, "edges": {"arrows": {"to": {"enabled": true, "scaleFactor": 0.8}}, "font": {"size": 10}, "smooth": {"enabled": true, "type": "dynamic"}}, "physics": {"forceAtlas2Based": {"gravitationalConstant": -50, "centralGravity": 0.005, "springLength": 100, "springConstant": 0.18}, "maxVelocity": 146, "solver": "forceAtlas2Based", "timestep": 0.35, "stabilization": {"enabled": true, "iterations": 2000, "updateInterval": 25}}, "interaction": {"navigationButtons": true, "zoomView": true}};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>

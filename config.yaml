@@ -1,0 +1,6 @@
+# config.yaml
+settings:
+  default_language: zh_cn # Supported: en, zh_cn
+  projects_directory: projects # Relative path to the directory where projects are stored
+  auto_open_html: true # Automatically open HTML visualization in browser after generation
+  web_server_port: 5000 # Port for the local web GUI (Flask)

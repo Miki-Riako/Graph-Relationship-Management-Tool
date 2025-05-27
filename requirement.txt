@@ -1,3 +1,5 @@
 networkx
 pyvis
-# matplotlib
+typer
+PyYAML
+python-dotenvs
