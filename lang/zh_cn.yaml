@@ -36,6 +36,45 @@ cli:
   TXT_SHELL_COMMAND_HELP: "进入交互式命令行模式。"
   TXT_WELCOME_TO_SHELL: "欢迎来到技能树构建器交互式命令行！\n输入 'help' 查看可用命令，或 'exit' 退出。"
   TXT_SHELL_PROMPT: "skilltree> "
+  TXT_STOPPING_PREVIOUS_SERVER: "提示：正在尝试停止先前运行的本地服务器..."
+  TXT_SERVER_STARTED_AT: "本地HTTP服务器已在以下地址启动 (提供 '{project_name}' 项目的 '{html_file_name}'):" # start_local_server 还未接收 project_name 和 html_file_name
+  TXT_SERVER_INFO_COPY_URL: "请将此链接复制到您的浏览器中打开。"
+  TXT_URL_COPIED_TO_CLIPBOARD: "提示：链接已复制到剪贴板 (需要安装 pyperclip)。"
+  TXT_PYPERCLIP_NOT_FOUND_HINT: "提示：如果想自动复制链接，请安装 'pyperclip' (`pip install pyperclip`)。"
+  TXT_SERVER_PRESS_CTRL_C_TO_STOP: "在交互式Shell外部运行时，按 CTRL+C 停止服务器并退出。" # 这个针对非shell模式的提示
+  TXT_PORT_IN_USE: "错误：端口 {port} 已被占用 ({error_message})。无法启动本地服务器。"
+  TXT_PORT_IN_USE_HINT: "请尝试更改 'config.yaml' 中的 'web_server_port'，或关闭占用该端口的程序。"
+  TXT_SERVER_START_ERROR: "错误：启动本地HTTP服务器失败: {error_message}"
+  TXT_SERVER_RUNNING_PRESS_CTRL_C_MAIN: "本地服务器正在运行。按 CTRL+C 停止服务器并退出程序。"
+  TXT_SERVER_SHUTTING_DOWN: "\n正在关闭本地服务器..."
+  TXT_SERVER_STOPPED: "本地服务器已停止。"
+  TXT_HTML_FILE_NOT_FOUND_FOR_SERVER: "错误：找不到用于启动服务器的HTML文件：{file_path}"
+  TXT_SERVE_ONLY_HELP: "仅启动HTTP服务器提供已存在的HTML文件，不重新生成。"
+  TXT_HTML_NOT_FOUND_FOR_SERVE_ONLY: "错误：在 --serve-only 模式下，HTML文件 '{file_path}' 不存在。"
+  TXT_HTML_NOT_FOUND_FOR_SERVE_ONLY_HINT: "请先不带 --serve-only 运行 'open {project_name}' 命令来生成HTML文件。"
+  TXT_SERVE_ONLY_MODE_STARTING: "--serve-only 模式：正在为已存在的 '{file_path}' 启动服务器..."
+  TXT_STOPPING_PREVIOUS_SERVER: "提示：正在尝试停止先前运行的本地服务器..."
+  # TXT_SERVER_STARTED_AT: (可以移除或保留作为旧版本参考)
+  TXT_SERVER_STARTED_AT_NO_CLIPBOARD: "本地HTTP服务器已在以下地址启动 (提供 '{project_name}' 项目的 '{html_file_name}'):\n  => {url}\n请将此链接复制到您的浏览器中打开。"
+  # TXT_SERVER_INFO_COPY_URL: (可以移除或合并)
+  # TXT_URL_COPIED_TO_CLIPBOARD: (移除)
+  # TXT_PYPERCLIP_NOT_FOUND_HINT: (移除)
+  TXT_SERVER_RUNNING_IN_BACKGROUND_SHELL: "提示：服务器正在后台运行。您可以继续使用shell或在新标签页打开链接。"
+  TXT_PORT_IN_USE: "错误：端口 {port} 已被占用 ({error_message})。无法启动本地服务器。"
+  TXT_PORT_IN_USE_HINT: "请尝试更改 'config.yaml' 中的 'web_server_port'，或关闭占用该端口的程序。"
+  TXT_SERVER_START_ERROR: "错误：启动本地HTTP服务器失败: {error_message}"
+  # TXT_SERVER_RUNNING_PRESS_CTRL_C_MAIN: (移除，因为我们简化了阻塞逻辑)
+  # TXT_SERVER_SHUTTING_DOWN: (可以保留，如果将来有其他地方用到)
+  # TXT_SERVER_STOPPED: (可以保留)
+  TXT_HTML_FILE_NOT_FOUND_FOR_SERVER: "错误：找不到用于启动服务器的HTML文件：{file_path}"
+  TXT_SERVE_ONLY_HELP: "仅启动HTTP服务器提供已存在的HTML文件，不重新生成。"
+  TXT_HTML_NOT_FOUND_FOR_SERVE_ONLY: "错误：在 --serve-only 模式下，HTML文件 '{file_path}' 不存在。"
+  TXT_HTML_NOT_FOUND_FOR_SERVE_ONLY_HINT: "请先不带 --serve-only 运行 'open {project_name}' 命令来生成HTML文件。"
+  TXT_SERVE_ONLY_MODE_STARTING: "--serve-only 模式：正在为已存在的 '{file_path}' 启动服务器..."
+  TXT_SERVER_NOT_STARTED_NO_BLOCK: "警告：本地HTTP服务器未能成功启动。请检查之前的错误消息。"
+  TXT_INTERRUPT_SHELL_PROMPT_AGAIN: "\n操作已中断。您可以输入下一个命令，或使用 'exit' 退出。"
+  TXT_SHELL_EXITING_STOPPING_SERVER: "Shell正在退出，尝试关闭后台HTTP服务器..."
+  TXT_SHELL_GOODBYE: "再见！"
 
 skill_tree_project:
   TXT_LOADING_RELATIONS_FILE: "正在加载知识关系文件: '{file_path}'..."
